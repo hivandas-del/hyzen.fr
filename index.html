@@ -470,10 +470,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .apps a { grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 16px; }
   .apps .icon { width: 56px; }
   .chapter { height: auto; }
-  .stage { position: relative; height: auto; grid-template-columns: minmax(0, 1fr); padding-block: 72px; gap: 36px; }
+  /* le texte défile, puis l'appareil reste épinglé le temps de la cale (::after) */
+  .stage { position: relative; height: auto; grid-template-columns: minmax(0, 1fr); padding-block: 72px 0; gap: 36px; }
+  .stage::after { content: ""; height: 180svh; }
   .copy { transform: none; }
-  .visual { height: auto; padding-block: 12px; }
-  .device { zoom: .62; }
+  .visual { position: sticky; top: 0; height: 100svh; box-sizing: border-box; padding-block: calc(150px + env(safe-area-inset-top, 0px)) 24px; }
+  /* légendes déplacées dans .visual par le script : une seule visible, au-dessus de l'appareil */
+  .visual .captions { position: absolute; z-index: 2; top: calc(76px + env(safe-area-inset-top, 0px)); inset-inline: 0; }
+  .visual .captions li { grid-area: 1 / 1; opacity: 0; }
+  .device { zoom: .72; }
   .ds { zoom: .82; }
   .skills { grid-template-columns: 1fr 1fr; }
   .links { grid-template-columns: 1fr; }
@@ -996,8 +1001,10 @@ function update() {
   for (const c of chapters) {
     const r = c.getBoundingClientRect();
     // grand écran : la scène est épinglée, on mesure le défilement à l'intérieur du chapitre ;
-    // petit écran : le chapitre défile normalement, on mesure son passage dans la fenêtre
-    const p = wide.matches ? -r.top / (r.height - vh) : (vh * .7 - r.top) / r.height;
+    // petit écran : seul l'appareil est épinglé, pendant que la cale (.stage::after) défile
+    let p;
+    if (wide.matches) p = -r.top / (r.height - vh);
+    else { const pin = parseFloat(getComputedStyle(c.querySelector('.stage'), '::after').height); p = (vh + pin - r.bottom) / pin; }
     const q = Math.min(1, Math.max(0, p));
     const n = +c.dataset.steps;
     c.style.setProperty('--p', q.toFixed(4));
@@ -1012,6 +1019,12 @@ function update() {
     for (const a of indexLinks) a.toggleAttribute('aria-current', a.hash === '#' + scene.id);
   }
 }
+// petit écran : les légendes passent au-dessus de l'appareil épinglé
+const captions = chapters.map(c => { const cap = c.querySelector('.captions'); return [cap, cap.nextElementSibling, c.querySelector('.visual')]; });
+function placeCaptions() { for (const [cap, next, visual] of captions) wide.matches ? next.before(cap) : visual.prepend(cap); }
+wide.addEventListener('change', placeCaptions);
+placeCaptions();
+
 addEventListener('scroll', () => { raf ||= requestAnimationFrame(update); }, { passive: true });
 addEventListener('resize', update);
 update();
