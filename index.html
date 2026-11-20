@@ -51,6 +51,7 @@ body[data-scene="bob"]     { --bg: #07080B; --fg: #F3F4F6; --accent: #7DD3FC; --
 body[data-scene="cvmatch"] { --bg: #F5F5F4; --fg: #0A0A0A; --accent: #0A0A0A; --dim: #57534E; --line: rgba(10,10,10,.12); }
 body[data-scene="kadra"]   { --bg: #ECEFF5; --fg: #14213D; --accent: #2F5BEA; --dim: #5A6478; --line: rgba(20,33,61,.12); }
 body[data-scene="remote"]  { --bg: #05070C; --fg: #E8EEF8; --accent: #5B95FF; --dim: #76819A; --line: rgba(232,238,248,.1); }
+body[data-scene="affirm"]  { --bg: #F3E7DA; --fg: #3B1832; --accent: #8E3B6E; --dim: #85667A; --line: rgba(59,24,50,.14); }
 
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
@@ -98,7 +99,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .hero h1 em { font-family: var(--font-serif); font-weight: 400; font-style: italic; letter-spacing: -.02em; color: var(--dim); }
 .hero .lead { margin: 0; max-width: 34ch; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.35; letter-spacing: -.015em; text-wrap: balance; color: var(--dim); animation: rise 1.1s .12s cubic-bezier(.2,.7,.1,1) both; }
 .hero .lead strong { color: var(--fg); font-weight: 600; }
-.apps { list-style: none; margin: 24px 0 0; padding: 32px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 24px; }
+.apps { list-style: none; margin: 24px 0 0; padding: 32px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 24px; }
 .apps li { animation: rise 1s calc(.22s + var(--i) * .06s) cubic-bezier(.2,.7,.1,1) both; }
 .apps a { display: grid; gap: 12px; text-decoration: none; }
 .apps a:hover .icon { transform: translateY(-4px) scale(1.04); }
@@ -144,6 +145,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .schools span { color: var(--dim); font-size: 15px; }
 .icon.remote { background: #0B0D14; }
 .icon.remote svg { width: 100%; height: 100%; }
+.icon.affirm { background: linear-gradient(160deg, #7A2E62, #2E0F27); color: #F6E9DA; font: italic 400 40px/1 var(--font-serif); }
+.name .icon.affirm { font: italic 400 1em/1 var(--font-serif); }
+.name .icon.affirm span { font-size: .42em; }
 .scroll-hint { display: flex; align-items: center; gap: 12px; color: var(--dim); }
 .scroll-hint::before { content: ""; width: 1px; height: 36px; background: linear-gradient(var(--dim), transparent); animation: drip 2s ease-in-out infinite; }
 
@@ -368,43 +372,98 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .rm .tabbar { color: #76819A; border-top: 1px solid rgba(255,255,255,.06); }
 .rm .tabbar span.on { color: #5B95FF; }
 
-/* Kadra (DA de l'app : bleu nuit #14213D, bleu #2F5BEA, fond #ECEFF5, Manrope) */
-.kd { background: #ECEFF5; color: #141B2D; font-family: Manrope, var(--font-display); }
-.kd .in { padding: 14px 16px 0; display: grid; gap: 10px; }
-.kd h4 { margin: 4px 0 0; font-size: 22px; letter-spacing: -.02em; font-weight: 800; }
-.kd-sub { margin: -6px 0 0; color: #5A6478; font-size: 12px; }
-.kd-card, .kd-g, .kd-row { background: #fff; border-radius: 18px; box-shadow: 0 1px 3px rgba(20,33,61,.06), 0 4px 14px -6px rgba(20,33,61,.12); }
-.kd-said { padding: 12px 14px; font-size: 13.5px; line-height: 1.45; }
+/* Fièrement (ex-Belle & Confiante) */
+.bc { background: linear-gradient(170deg, #6E2858, #3A1232 60%, #240A1F); color: #F6E9DA; }
+.bc .topic { margin: 18px auto 0; width: max-content; font-size: 11.5px; padding: 6px 12px; border-radius: 999px; background: rgba(246,233,218,.12); }
+.bc .quote { position: absolute; left: 26px; right: 26px; top: 150px; text-align: center; font: 400 31px/1.15 var(--font-serif); text-wrap: balance; }
+.bc .tag { display: block; margin-bottom: 14px; font: 500 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: #E7B9D5; }
+.bc .actions { position: absolute; left: 20px; right: 20px; bottom: 44px; display: grid; justify-items: center; gap: 16px; }
+.bc .row { display: flex; gap: 26px; }
+.bc .row i { width: 44px; height: 44px; border-radius: 50%; background: rgba(246,233,218,.1); display: grid; place-items: center; }
+.bc .row svg { width: 20px; fill: none; stroke: #F6E9DA; stroke-width: 1.8; }
+.bc .doubt { font-size: 13px; font-weight: 600; padding: 11px 18px; border-radius: 999px; border: 1px solid rgba(246,233,218,.35); }
+.bc .doubt.on { background: #F6E9DA; color: #3A1232; }
+.bc-book { background: #F7EEE4; color: #3B1832; }
+.bc-book .in { padding: 22px 20px; display: grid; gap: 14px; }
+.bc-book h4 { margin: 8px 0 0; font-size: 28px; letter-spacing: -.02em; }
+.bc-book .entry { background: #fff; border-radius: 16px; padding: 14px; display: grid; gap: 6px; box-shadow: 0 6px 18px -10px rgba(59,24,50,.4); }
+.bc-book .entry small { color: #8E3B6E; font: 500 10px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.bc-book .entry p { margin: 0; font: 400 19px/1.25 var(--font-serif); }
+.bc-book ul { list-style: none; margin: 0; padding: 0; background: #fff; border-radius: 16px; }
+.bc-book li { padding: 12px 14px; font-size: 13px; display: grid; gap: 2px; border-top: 1px solid #F0E3D6; }
+.bc-book li:first-child { border-top: 0; }
+.bc-book li span { color: #85667A; font-size: 11px; }
+
+/* Kadra, version ordinateur (DA de l'app : bleu nuit #14213D, bleu #2F5BEA, fond #ECEFF5, Manrope ; menu et tableau de bord repris de l'app) */
+.kd-desk { width: 600px; height: 392px; border-radius: 14px; overflow: hidden; background: #ECEFF5; color: #141B2D; font-family: Manrope, var(--font-display); box-shadow: 0 0 0 1px rgba(20,33,61,.1), 0 50px 90px -30px rgba(20,33,61,.55); }
+.kd-bar { height: 24px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: #DCE1EA; }
+.kd-bar i { width: 9px; height: 9px; border-radius: 50%; background: #F26B5E; } .kd-bar i:nth-child(2) { background: #F5BE4F; } .kd-bar i:nth-child(3) { background: #5DC662; }
+.kd-bar span { margin-inline: auto; padding: 2px 40px; border-radius: 6px; background: #ECEFF5; font-size: 9.5px; color: #5A6478; }
+.kd-app { display: grid; grid-template-columns: 118px minmax(0, 1fr); height: calc(100% - 24px); }
+.kd-side { background: #14213D; color: #C3CCE0; padding: 12px 8px; display: grid; align-content: start; gap: 1px; font-size: 10px; font-weight: 500; }
+.kd-side b { display: flex; align-items: center; gap: 6px; color: #fff; font-size: 13px; font-weight: 800; padding: 0 6px 10px; }
+.kd-side b svg { width: 18px; border-radius: 5px; }
+.kd-side span { padding: 5px 8px; border-radius: 7px; transition: background .3s, color .3s, box-shadow .3s; }
+.kd-side small { padding: 9px 8px 3px; color: #8F9BB7; font-size: 8px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+#kadra[data-step="0"] .kd-side .n0, #kadra[data-step="1"] .kd-side .n1, #kadra[data-step="2"] .kd-side .n1, #kadra[data-step="3"] .kd-side .n3 { background: #22335A; color: #fff; font-weight: 700; box-shadow: inset 2px 0 0 #6D8DF0; }
+.kd-main { position: relative; }
+.kd-pg { padding: 14px 16px; display: grid; gap: 10px; align-content: start; }
+.kd h4 { margin: 0; font-size: 17px; letter-spacing: -.02em; font-weight: 800; }
+.kd-sub { margin: -8px 0 0; color: #5A6478; font-size: 10.5px; }
+.kd-card, .kd-g, .kd-row, .kd-k, .kd-box { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(20,33,61,.06), 0 4px 14px -6px rgba(20,33,61,.12); }
+.kd-two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 10px; align-items: start; }
+.kd-two > div { display: grid; gap: 8px; }
+/* étape 0 : tableau de bord (CA de l'année en grand, puis Aujourd'hui, À faire, chantiers) */
+.kd-kpis { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 7px; }
+.kd-k { padding: 9px 10px; display: grid; gap: 2px; align-content: start; }
+.kd-k small { color: #5A6478; font-size: 8.5px; font-weight: 600; }
+.kd-k b { font-size: 14px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.kd-k span { color: #6B7487; font-size: 8px; }
+.kd-k.ca { background: radial-gradient(160px 110px at 100% 0, rgba(91,140,255,.35), transparent 75%), #14213D; color: #fff; }
+.kd-k.ca small, .kd-k.ca span { color: #C9D3EA; } .kd-k.ca b { font-size: 18px; }
+.kd-k.crit { background: radial-gradient(90px 70px at 100% 0, #FDE4E1, transparent 75%), #fff; } .kd-k.crit b { color: #C8382B; }
+.kd-boxes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 7px; }
+.kd-box { padding: 9px; display: grid; gap: 5px; align-content: start; min-height: 196px; box-sizing: border-box; }
+.kd-box b { font-size: 11.5px; font-weight: 800; padding: 0 2px 2px; }
+.kd-box p { margin: 0; padding: 6px 7px; border-radius: 8px; background: #F4F6FA; font-size: 9.5px; font-weight: 600; line-height: 1.3; }
+.kd-box p small { display: block; color: #6B7487; font-size: 8.5px; font-weight: 500; }
+.kd-box p small.late { color: #C8382B; }
+.kd-box em { font-style: normal; color: #2F5BEA; font-weight: 800; margin-right: 5px; }
+.kd-box i { display: block; height: 4px; margin-top: 5px; border-radius: 2px; background: #E3E7EF; overflow: hidden; }
+.kd-box i::after { content: ""; display: block; width: var(--v); height: 100%; background: #2F5BEA; }
+/* étape 1 : dictée */
+.kd-said { margin: 0; padding: 12px 14px; font-size: 12px; line-height: 1.5; }
 .kd-said em { font-style: normal; color: #2F5BEA; background: #E6ECFD; border-radius: 4px; padding: 0 3px; }
-.kd-mic { justify-self: center; margin-top: 22px; width: 84px; height: 84px; border-radius: 50%; background: #2F5BEA; display: grid; place-items: center; box-shadow: 0 0 0 10px rgba(47,91,234,.15), 0 0 0 22px rgba(47,91,234,.07); }
-.kd-mic svg { width: 30px; fill: #fff; }
+.kd-voice { justify-items: center; padding-top: 6px; }
+.kd-mic { width: 72px; height: 72px; border-radius: 50%; background: #2F5BEA; display: grid; place-items: center; box-shadow: 0 0 0 9px rgba(47,91,234,.15), 0 0 0 19px rgba(47,91,234,.07); margin: 14px 0 10px; }
+.kd-mic svg { width: 26px; fill: #fff; }
 #kadra .waves span { background: #2F5BEA; animation: wave 1s ease-in-out infinite; }
 #kadra .waves span:nth-child(2n) { animation-delay: -.3s; } #kadra .waves span:nth-child(3n) { animation-delay: -.6s; }
-.kd-hint { margin: 0; text-align: center; color: #5A6478; font-size: 12px; }
-.kd-sheet { padding: 2px 14px; }
-.kd-l { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-top: 1px solid #E9EDF4; font-size: 12.5px; font-weight: 500; }
+.kd-hint { margin: 0; text-align: center; color: #5A6478; font-size: 10px; line-height: 1.4; }
+/* étape 2 : devis rédigé et gammes */
+.kd-sheet { padding: 2px 12px; }
+.kd-l { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-top: 1px solid #E9EDF4; font-size: 10.5px; font-weight: 500; }
 .kd-l:first-child { border-top: 0; }
-.kd-l small { display: block; margin-top: 2px; color: #6B7487; font-size: 11px; }
+.kd-l small { display: block; margin-top: 1px; color: #6B7487; font-size: 9px; }
 .kd-l b { white-space: nowrap; font-variant-numeric: tabular-nums; }
-.kd-l.more { color: #6B7487; font-size: 11.5px; }
-.kd-tot { display: flex; justify-content: space-between; align-items: center; padding: 11px 14px; border-radius: 14px; background: #14213D; color: #fff; font-size: 12.5px; }
-.kd-tot b { font-size: 17px; font-variant-numeric: tabular-nums; }
-.kd-note { margin: 0; display: flex; gap: 6px; align-items: center; color: #0D8A4F; font-size: 11.5px; font-weight: 600; }
-.kd-note::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.kd-g { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; align-items: center; padding: 12px 14px; border: 2px solid transparent; }
-.kd-g span { font-weight: 800; font-size: 14px; }
-.kd-g small { color: #6B7487; font-size: 11.5px; line-height: 1.35; }
-.kd-g b { grid-area: 1 / 2 / 3; font-size: 16px; font-variant-numeric: tabular-nums; }
+.kd-l.more { color: #6B7487; font-size: 9.5px; }
+.kd-tot { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; border-radius: 10px; background: #14213D; color: #fff; font-size: 10.5px; }
+.kd-tot b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.kd-note { margin: 0; display: flex; gap: 5px; align-items: center; color: #0D8A4F; font-size: 9.5px; font-weight: 600; }
+.kd-note::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.kd-g { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; align-items: center; padding: 9px 11px; border: 2px solid transparent; }
+.kd-g span { font-weight: 800; font-size: 11.5px; }
+.kd-g small { color: #6B7487; font-size: 9px; line-height: 1.3; }
+.kd-g b { grid-area: 1 / 2 / 3; font-size: 13px; font-variant-numeric: tabular-nums; }
 .kd-g.on { border-color: #2F5BEA; }
-.kd-g.on span::after { content: "Choisie"; margin-left: 8px; padding: 2px 7px; border-radius: 999px; background: #2F5BEA; color: #fff; font-size: 10px; vertical-align: 2px; }
-.kd-btn { padding: 12px; border-radius: 999px; background: #2F5BEA; color: #fff; text-align: center; font-weight: 700; font-size: 13px; }
+.kd-g.on span::after { content: "Choisie"; margin-left: 6px; padding: 1px 6px; border-radius: 999px; background: #2F5BEA; color: #fff; font-size: 8.5px; vertical-align: 1px; }
+.kd-btn { padding: 9px; border-radius: 999px; background: #2F5BEA; color: #fff; text-align: center; font-weight: 700; font-size: 11px; }
+/* étape 3 : signé */
 .kd-sign { padding: 10px 14px; display: grid; gap: 4px; }
-.kd-sign svg { width: 100%; height: 64px; fill: none; stroke: #141B2D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.kd-sign small { padding-top: 6px; border-top: 1px dashed #DDE2EC; color: #6B7487; font-size: 11px; }
-.kd-row { display: flex; gap: 10px; align-items: center; padding: 11px 12px; border-radius: 14px; font-size: 12.5px; font-weight: 600; }
-.kd-row::before { content: "✓"; flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #E3F4EA; color: #0D8A4F; font-size: 12px; font-weight: 800; }
-.kd .tabbar { background: #14213D; color: rgba(255,255,255,.6); }
-.kd .tabbar span.on { color: #A9C1FF; font-weight: 700; }
+.kd-sign svg { width: 100%; height: 70px; fill: none; stroke: #141B2D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.kd-sign small { padding-top: 6px; border-top: 1px dashed #DDE2EC; color: #6B7487; font-size: 9.5px; }
+.kd-row { display: flex; gap: 8px; align-items: center; padding: 10px 11px; font-size: 10.5px; font-weight: 600; }
+.kd-row::before { content: "✓"; flex: none; width: 19px; height: 19px; border-radius: 50%; display: grid; place-items: center; background: #E3F4EA; color: #0D8A4F; font-size: 10px; font-weight: 800; }
 
 /* ---------- fin de page ---------- */
 .outro {
@@ -435,8 +494,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .name { font-size: min(clamp(52px, 6.5vw, 100px), 13cqi); }
   .copy { gap: 16px; }
 }
-@media (min-width: 900px) and (max-width: 1280px) { .rm-scene { zoom: .74; } }
-@media (max-width: 1180px) { .apps { grid-template-columns: repeat(3, minmax(0, 1fr)); } .links { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) and (max-width: 1280px) { .rm-scene, .kd-desk { zoom: .74; } }
+@media (max-width: 1180px) { .apps { grid-template-columns: repeat(4, minmax(0, 1fr)); } .links { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 1100px) { .index { display: none; } .stage { padding-right: max(24px, env(safe-area-inset-right, 0px)); } }
 @media (max-width: 899px) {
   .nav .current { display: none; }
@@ -460,7 +519,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .skills { grid-template-columns: 1fr 1fr; }
   .links { grid-template-columns: 1fr; }
 }
-@media (max-width: 520px) { .skills, .links { grid-template-columns: 1fr; } .desk, .bob-desk { zoom: .58; } .rm-scene { zoom: .52; } .nav .brand { font-size: 17px; gap: 7px; } .nav .brand svg { width: 19px; height: 19px; } }
+@media (max-width: 520px) { .skills, .links { grid-template-columns: 1fr; } .desk, .bob-desk, .kd-desk { zoom: .58; } .rm-scene { zoom: .52; } .nav .brand { font-size: 17px; gap: 7px; } .nav .brand svg { width: 19px; height: 19px; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -487,6 +546,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <li><a href="#cvmatch"><span class="mono">CVMatch</span></a></li>
   <li><a href="#glisso"><span class="mono">Glisso</span></a></li>
   <li><a href="#remote"><span class="mono">Omvo</span></a></li>
+  <li><a href="#affirm"><span class="mono">Fièrement</span></a></li>
 </ol>
 
 <main>
@@ -502,6 +562,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <li style="--i:3"><a href="#cvmatch"><span class="icon cvmatch"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="29" fill="none" stroke="#fff" stroke-width="7"></circle><circle cx="50" cy="50" r="15" fill="none" stroke="#fff" stroke-width="7"></circle><circle cx="50" cy="50" r="5.5" fill="#fff"></circle><circle cx="70.5" cy="29.5" r="6.5" fill="#fff" stroke="#0A0A0A" stroke-width="4"></circle></svg></span><span><b>CVMatch</b><small>Candidatures + IA · Web</small></span></a></li>
       <li style="--i:4"><a href="#glisso"><span class="icon"><svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="23" fill="#1E1E22"/><path d="M34.909 19.533A34 34 0 0 1 65.091 19.533L55.77 38.351A13 13 0 0 0 44.23 38.351Z" fill="#F28C28"/><path d="M68.84 21.697A34 34 0 0 1 83.931 47.836L62.974 49.172A13 13 0 0 0 57.204 39.178Z" fill="#4A4A52"/><path d="M83.931 52.164A34 34 0 0 1 68.84 78.303L57.204 60.822A13 13 0 0 0 62.974 50.828Z" fill="#4A4A52"/><path d="M65.091 80.467A34 34 0 0 1 34.909 80.467L44.23 61.649A13 13 0 0 0 55.77 61.649Z" fill="#4A4A52"/><path d="M31.16 78.303A34 34 0 0 1 16.069 52.164L37.026 50.828A13 13 0 0 0 42.796 60.822Z" fill="#4A4A52"/><path d="M16.069 47.836A34 34 0 0 1 31.16 21.697L42.796 39.178A13 13 0 0 0 37.026 49.172Z" fill="#4A4A52"/><circle cx="50" cy="50" r="6" fill="#F4F1EC"/></svg></span><span><b>Glisso</b><small>Convertisseur · Windows</small></span></a></li>
       <li style="--i:5"><a href="#remote"><span class="icon remote"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="omvo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7280E0"></stop><stop offset="1" stop-color="#45A6E2"></stop></linearGradient></defs><rect width="100" height="100" rx="23" fill="url(#omvo)"></rect><path d="M64.9 32.7A26 26 0 1 1 35.1 32.7" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"></path><path d="M50 16V42M42 25V36M58 25V36" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"></path></svg></span><span><b>Omvo</b><small>Maison connectée · Android et PC</small></span></a></li>
+      <li style="--i:6"><a href="#affirm"><span class="icon affirm">Fi</span><span><b>Fièrement</b><small>Affirmations · iPhone</small></span></a></li>
     </ul>
     <p class="scroll-hint mono">Faites défiler</p>
   </section>
@@ -563,11 +624,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="copy">
         <p class="kicker mono">SaaS · Web et mobile <span class="status">Démo fonctionnelle</span></p>
         <h2 class="name"><span class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#14213D"/><path d="M15.5 16l7.5 8.5" stroke="#A9C1FF" stroke-width="3.25" stroke-linecap="round"/><path d="M14 7.5H9.5v17H14M23 7.5L15.5 16" fill="none" stroke="#fff" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Kadra</span></h2>
-        <p class="pitch">Le logiciel de devis et factures des artisans du bâtiment, piloté à la voix. L'artisan dicte son devis sur le chantier, dans sa langue, même en mélangeant turc et français. Claude le rédige en français avec les prix de ses anciens devis. Le client choisit sa gamme, signe et paie en ligne.</p>
+        <p class="pitch">Le logiciel de devis et factures des artisans du bâtiment, piloté à la voix. L'artisan dicte son devis sur le chantier, en français, et peut glisser des mots d'une autre langue au milieu. Claude le rédige en français avec les prix de ses anciens devis. Le client choisit sa gamme, signe et paie en ligne.</p>
         <ol class="captions">
-          <li data-s="0">Dictez le devis, dans votre langue.</li>
-          <li data-s="1">Kadra le rédige, avec vos prix.</li>
-          <li data-s="2">Le client choisit sa gamme.</li>
+          <li data-s="0">Toute l'activité, d'un coup d'œil.</li>
+          <li data-s="1">Dictez-le, même en mêlant deux langues.</li>
+          <li data-s="2">Kadra le rédige, en trois gammes.</li>
           <li data-s="3">Il signe, il paie, le chantier démarre.</li>
         </ol>
         <dl class="facts">
@@ -579,59 +640,80 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <a class="visit" href="https://github.com/hivandas-del/kadra" target="_blank" rel="noopener">Voir le code sur GitHub ↗</a>
       </div>
       <div class="visual">
-        <div class="device phone">
-          <div class="screen">
-            <div class="s kd" data-s="0">
-              <div class="sb"><span>8:12</span><i></i></div>
-              <div class="in">
+        <div class="device kd-desk kd">
+          <div class="kd-bar" aria-hidden="true"><i></i><i></i><i></i><span>Kadra</span></div>
+          <div class="kd-app">
+            <div class="kd-side" aria-hidden="true">
+              <b><svg viewBox="0 0 32 32"><rect width="32" height="32" fill="#2F5BEA"/><path d="M15.5 16l7.5 8.5" stroke="#A9C1FF" stroke-width="3.25" stroke-linecap="round"/><path d="M14 7.5H9.5v17H14M23 7.5L15.5 16" fill="none" stroke="#fff" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round"/></svg>Kadra</b>
+              <span class="n0">Tableau de bord</span><span>Analyse</span><span>Agenda</span><span class="n3">Chantiers</span>
+              <small>Documents</small>
+              <span class="n1">Devis</span><span>Factures</span><span>Dépenses</span>
+              <small>Fichiers</small>
+              <span>Clients</span><span>Catalogue de prix</span>
+            </div>
+            <div class="kd-main">
+              <div class="s kd-pg" data-s="0">
+                <h4>Bonjour Karim</h4>
+                <p class="kd-sub">Jeudi 20 novembre. 3 choses à faire aujourd'hui.</p>
+                <div class="kd-kpis">
+                  <div class="kd-k ca"><small>Chiffre d'affaires 2026</small><b>84 260 € HT</b><span>+18 % par rapport à 2025</span></div>
+                  <div class="kd-k crit"><small>Paiements en retard</small><b>1 240 €</b><span>2 factures</span></div>
+                  <div class="kd-k"><small>À facturer</small><b>3 980 €</b><span>1 facture à faire</span></div>
+                  <div class="kd-k"><small>Signé à venir</small><b>21 400 €</b><span>4 chantiers</span></div>
+                </div>
+                <div class="kd-boxes">
+                  <div class="kd-box"><b>Aujourd'hui</b><p><em>08:30</em>Visite · Mme Martin<small>Salle de bain</small></p><p><em>14:00</em>Livraison faïence<small>Chantier Leroy</small></p></div>
+                  <div class="kd-box"><b>À faire</b><p>Relancer M. Petit<small class="late">Facture en retard de 12 jours</small></p><p>Facturer la cuisine Leroy<small>Chantier terminé</small></p><p>Répondre à Mme Durand<small>E-mail reçu ce matin</small></p></div>
+                  <div class="kd-box"><b>Vos chantiers</b><p>Cuisine Leroy<small>Fin le 28/11</small><i style="--v:85%"></i></p><p>Toiture Garnier<small>Fin le 12/12</small><i style="--v:35%"></i></p></div>
+                </div>
+              </div>
+              <div class="s kd-pg" data-s="1">
                 <h4>Nouveau devis</h4>
                 <p class="kd-sub">Parlez, Kadra rédige.</p>
-                <p class="kd-card kd-said">« Salle de bain chez Mme Martin. <em>Eski fayansları sökeceğiz, 12 metrekare.</em> Pose faïence 20 m², receveur extra-plat… »</p>
-                <div class="kd-mic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1a7 7 0 0 0 6-6.9z"/></svg></div>
-                <div class="waves"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                <p class="kd-hint">J'écoute… turc et français</p>
+                <div class="kd-two">
+                  <p class="kd-card kd-said">« Salle de bain chez Mme Martin. <em>Tirar os azulejos antigos, doze metros.</em> Pose faïence 20 m², receveur extra-plat 120 par 80, plomberie à refaire… »</p>
+                  <div class="kd-voice">
+                    <div class="kd-mic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1a7 7 0 0 0 6-6.9z"/></svg></div>
+                    <div class="waves"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                    <p class="kd-hint">J'écoute… en français,<br>avec une autre langue si besoin</p>
+                  </div>
+                </div>
               </div>
-              <div class="tabbar"><span>Accueil</span><span class="on">Devis</span><span>Chantiers</span><span>E-mails</span></div>
-            </div>
-            <div class="s kd" data-s="1">
-              <div class="sb"><span>8:13</span><i></i></div>
-              <div class="in">
+              <div class="s kd-pg" data-s="2">
                 <h4>DEV-2026-0012</h4>
                 <p class="kd-sub">Mme Martin · Salle de bain</p>
-                <div class="kd-card kd-sheet">
-                  <div class="kd-l"><span>Dépose carrelage<small>12 m² × 18,00 €</small></span><b>216,00 €</b></div>
-                  <div class="kd-l"><span>Faïence murale<small>20 m² × 45,00 €</small></span><b>900,00 €</b></div>
-                  <div class="kd-l"><span>Receveur 120×80<small>1 u × 640,00 €</small></span><b>640,00 €</b></div>
-                  <div class="kd-l"><span>Plomberie<small>forfait</small></span><b>1 450,00 €</b></div>
-                  <div class="kd-l more"><span>+ 3 lignes</span></div>
+                <div class="kd-two">
+                  <div>
+                    <div class="kd-card kd-sheet">
+                      <div class="kd-l"><span>Dépose carrelage<small>12 m² × 18,00 €</small></span><b>216,00 €</b></div>
+                      <div class="kd-l"><span>Faïence murale<small>20 m² × 45,00 €</small></span><b>900,00 €</b></div>
+                      <div class="kd-l"><span>Receveur 120×80<small>1 u × 640,00 €</small></span><b>640,00 €</b></div>
+                      <div class="kd-l"><span>Plomberie<small>forfait</small></span><b>1 450,00 €</b></div>
+                      <div class="kd-l more"><span>+ 3 lignes</span></div>
+                    </div>
+                    <div class="kd-tot"><span>Total TTC</span><b>5 348,00 €</b></div>
+                    <p class="kd-note">Prix repris de vos devis passés</p>
+                  </div>
+                  <div>
+                    <div class="kd-g"><span>Essentiel</span><small>Faïence standard, mitigeur simple</small><b>4 176 €</b></div>
+                    <div class="kd-g on"><span>Confort</span><small>Grand format, mitigeur thermostatique</small><b>5 348 €</b></div>
+                    <div class="kd-g"><span>Premium</span><small>Paroi sur mesure, niche éclairée</small><b>7 710 €</b></div>
+                    <div class="kd-btn">Envoyer au client</div>
+                  </div>
                 </div>
-                <div class="kd-tot"><span>Total TTC</span><b>5 348,00 €</b></div>
-                <p class="kd-note">Prix repris de vos devis passés</p>
               </div>
-              <div class="tabbar"><span>Accueil</span><span class="on">Devis</span><span>Chantiers</span><span>E-mails</span></div>
-            </div>
-            <div class="s kd" data-s="2">
-              <div class="sb"><span>18:40</span><i></i></div>
-              <div class="in">
-                <h4>Votre gamme</h4>
-                <p class="kd-sub">Salle de bain · Mme Martin</p>
-                <div class="kd-g"><span>Essentiel</span><small>Faïence standard, mitigeur simple</small><b>4 176 €</b></div>
-                <div class="kd-g on"><span>Confort</span><small>Grand format, mitigeur thermostatique</small><b>5 348 €</b></div>
-                <div class="kd-g"><span>Premium</span><small>Paroi sur mesure, niche éclairée</small><b>7 710 €</b></div>
-                <div class="kd-btn">Signer le devis</div>
-              </div>
-            </div>
-            <div class="s kd" data-s="3">
-              <div class="sb"><span>18:42</span><i></i></div>
-              <div class="in">
+              <div class="s kd-pg" data-s="3">
                 <h4>Devis signé</h4>
                 <p class="kd-sub">DEV-2026-0012 · gamme Confort</p>
-                <div class="kd-card kd-sign"><svg viewBox="0 0 220 64" aria-hidden="true"><path d="M12 44c10-22 18-30 22-24s-8 28-2 26 14-30 22-28-6 24 2 24 12-16 20-16 4 14 12 12 10-10 18-10 6 8 14 6 20-6 36-8"/></svg><small>Signé par Mme Martin · 20/11/2026</small></div>
-                <div class="kd-row">Acompte payé · 1 604,40 €</div>
-                <div class="kd-row">Chantier créé · début le 7/12</div>
-                <div class="kd-row">Facture Factur-X prête</div>
+                <div class="kd-two">
+                  <div class="kd-card kd-sign"><svg viewBox="0 0 220 64" aria-hidden="true"><path d="M12 44c10-22 18-30 22-24s-8 28-2 26 14-30 22-28-6 24 2 24 12-16 20-16 4 14 12 12 10-10 18-10 6 8 14 6 20-6 36-8"/></svg><small>Signé en ligne par Mme Martin · 20/11/2026</small></div>
+                  <div>
+                    <div class="kd-row">Acompte payé · 1 604,40 €</div>
+                    <div class="kd-row">Chantier créé · début le 7/12</div>
+                    <div class="kd-row">Facture Factur-X prête</div>
+                  </div>
+                </div>
               </div>
-              <div class="tabbar"><span>Accueil</span><span>Devis</span><span class="on">Chantiers</span><span>E-mails</span></div>
             </div>
           </div>
         </div>
@@ -911,6 +993,64 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <div class="tabbar"><span class="on">Assistant</span><span>TV</span><span>PC</span><span>Maison</span></div>
             </div>
           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIÈREMENT (ex-Belle & Confiante) -->
+  <section class="chapter" id="affirm" data-scene-name="affirm" data-label="Fièrement" data-steps="3" data-step="0">
+    <div class="stage">
+      <div class="copy">
+        <p class="kicker mono">App mobile · iPhone <span class="status">En développement</span></p>
+        <h2 class="name"><span class="icon affirm"><span>Fi</span></span><span>Fièrement</span></h2>
+        <p class="pitch">Des affirmations qui ne sonnent pas faux. Quand une phrase paraît trop forte, l'app en propose une version pont, plus facile à croire. Un carnet garde une preuve par jour de ce qu'on a réussi.</p>
+        <ol class="captions">
+          <li data-s="0">Une phrase pour la journée.</li>
+          <li data-s="1">Pas encore convaincue ? La version pont.</li>
+          <li data-s="2">Une preuve par jour, dans le carnet.</li>
+        </ol>
+        <dl class="facts">
+          <div><dt>~550</dt><dd>affirmations</dd></div>
+          <div><dt>11</dt><dd>thèmes</dd></div>
+          <div><dt>iOS</dt><dd>design natif</dd></div>
+        </dl>
+        <ul class="stack"><li>Expo</li><li>Expo Router</li><li>TypeScript</li><li>Notifications locales</li></ul>
+      </div>
+      <div class="visual">
+        <div class="device phone">
+          <div class="screen">
+            <div class="s bc" data-s="0">
+              <div class="sb"><span>9:41</span><i></i></div>
+              <div class="topic">Amour de soi</div>
+              <p class="quote">Je suis fière du chemin parcouru.</p>
+              <div class="actions">
+                <div class="row"><i><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg></i></div>
+                <span class="doubt">Je n'y crois pas encore</span>
+              </div>
+            </div>
+            <div class="s bc" data-s="1">
+              <div class="sb"><span>9:41</span><i></i></div>
+              <div class="topic">Amour de soi</div>
+              <p class="quote"><span class="tag">Version pont</span>Je m'ouvre à l'idée d'être fière du chemin parcouru.</p>
+              <div class="actions">
+                <div class="row"><i><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6"/></svg></i></div>
+                <span class="doubt on">Je n'y crois pas encore</span>
+              </div>
+            </div>
+            <div class="s bc-book" data-s="2">
+              <div class="sb"><span>9:41</span><i></i></div>
+              <div class="in">
+                <h4>Carnet</h4>
+                <div class="entry"><small>Ta preuve du jour</small><p>J'ai osé dire non à une réunion de trop.</p></div>
+                <ul>
+                  <li>J'ai rendu mon dossier en avance.<span>Mardi</span></li>
+                  <li>J'ai appelé ma sœur alors que je repoussais.<span>Lundi</span></li>
+                  <li>J'ai couru 20 minutes sans m'arrêter.<span>Dimanche</span></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
